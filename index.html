@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PDFDecor — Free Indian Business Document Generator | GST Invoice, Certificates, ID Cards</title>
+  <meta name="description" content="India's #1 free PDF generator. Create GST invoices, certificates, ID cards, receipts, offer letters & more instantly. UPI QR code, live preview, bulk from CSV. No signup needed." />
+  <meta name="keywords" content="free invoice generator india, gst invoice maker, certificate generator free, id card maker online, receipt generator india, offer letter generator, bulk pdf generator, free business document india, upi qr invoice" />
+  <meta property="og:title" content="PDFDecor — Free Indian Business Document Generator" />
+  <meta property="og:description" content="India's free PDF generator for GST invoices, certificates, ID cards, receipts & more. UPI QR, live preview, bulk from CSV. No signup. Always free." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://pdfdecor.in" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="PDFDecor — Free Indian Business Document Generator" />
+  <meta name="twitter:description" content="GST invoices, certificates, ID cards, offer letters & more. Instant PDF. No signup. Bulk from CSV. Made for India." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📄</text></svg>" />
+
+  <!-- Tailwind CSS CDN (replace with build for production) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: { DEFAULT: '#2563eb', dark: '#1d4ed8', light: '#3b82f6' },
+            accent:  { DEFAULT: '#7c3aed', dark: '#6d28d9', light: '#8b5cf6' },
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+
+  <!-- jsPDF + html2canvas (PDF generation) -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+
+  <!-- QRCode.js -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+
+  <!-- JSZip (bulk ZIP downloads) -->
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+
+  <!-- Google AdSense (Auto Ads + manual units) -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2715542305151303" crossorigin="anonymous"></script>
+
+  <!-- Google Analytics GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX', {
+      page_title: 'PDFDecor',
+      send_page_view: true
+    });
+    // Custom event helper — used globally
+    function trackEvent(eventName, params) {
+      try { gtag('event', eventName, params || {}); } catch(e) {}
+    }
+  </script>
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="bg-gray-50 font-sans text-gray-900 antialiased">
+
+  <!-- ═══════════════════════════════════════════════════════
+       TOP AD LEADERBOARD (728×90)
+       Replace inner div with real AdSense <ins> tag
+  ═════════════════════════════════════════════════════════ -->
+  <div id="header-ad-zone" class="w-full flex items-center justify-center py-2 px-4" style="min-height:62px;background:#f1f5f9;border-bottom:1px solid #e2e8f0">
+    <!-- Google AdSense Header Leaderboard 728x90 -->
+    <ins class="adsbygoogle"
+         style="display:inline-block;width:728px;height:90px"
+         data-ad-client="ca-pub-2715542305151303"
+         data-ad-slot="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       STICKY TOP NAVIGATION
+  ═════════════════════════════════════════════════════════ -->
+  <header id="main-header" class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+
+        <!-- Logo -->
+        <a onclick="navigate('home')" class="flex items-center gap-2.5 cursor-pointer flex-shrink-0 group" aria-label="PDFDecor Home">
+          <div class="w-9 h-9 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow">
+            <i class="fas fa-file-pdf text-white text-sm"></i>
+          </div>
+          <span class="text-xl font-black text-gray-900 tracking-tight">PDF<span class="text-blue-600">Decor</span></span>
+        </a>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex items-center gap-0.5" role="navigation" aria-label="Main navigation">
+          <a onclick="navigate('home')" class="px-3 py-2 rounded-lg text-sm font-semibold text-gray-600 hover:text-blue-600 hover:bg-blue-50 cursor-pointer transition-all">Home</a>
+
+          <!-- Templates Dropdown -->
+          <div class="relative group">
+            <button class="px-3 py-2 rounded-lg text-sm font-semibold text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-all flex items-center gap-1.5" aria-haspopup="true">
+              Templates <i class="fas fa-chevron-down text-xs transition-transform group-hover:rotate-180"></i>
+            </button>
+            <div class="absolute top-full left-0 mt-1.5 w-64 bg-white rounded-2xl shadow-2xl border border-gray-100/80 py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 pointer-events-none group-hover:pointer-events-auto"
+                 style="box-shadow:0 20px 60px rgba(0,0,0,0.12)">
+              <div class="px-4 py-1.5 text-xs font-black text-gray-400 uppercase tracking-widest">💰 Financial</div>
+              <a onclick="navigate('invoice')"   class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 cursor-pointer transition-colors"><span class="w-7 h-7 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0"><i class="fas fa-file-invoice text-blue-600 text-xs"></i></span><div><div class="font-semibold">Invoice</div><div class="text-xs text-gray-400">GST · UPI QR</div></div></a>
+              <a onclick="navigate('receipt')"   class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-green-50 hover:text-green-700 cursor-pointer transition-colors"><span class="w-7 h-7 rounded-lg bg-green-100 flex items-center justify-center flex-shrink-0"><i class="fas fa-receipt text-green-600 text-xs"></i></span><div><div class="font-semibold">Receipt</div><div class="text-xs text-gray-400">Payment proof</div></div></a>
+              <a onclick="navigate('bill')"      class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-700 cursor-pointer transition-colors"><span class="w-7 h-7 rounded-lg bg-orange-100 flex items-center justify-center flex-shrink-0"><i class="fas fa-file-alt text-orange-600 text-xs"></i></span><div><div class="font-semibold">Bill</div><div class="text-xs text-gray-400">Itemized billing</div></div></a>
+              <a onclick="navigate('quotation')" class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-purple-50 hover:text-purple-700 cursor-pointer transition-colors"><span class="w-7 h-7 rounded-lg bg-purple-100 flex items-center justify-center flex-shrink-0"><i class="fas fa-file-contract text-purple-600 text-xs"></i></span><div><div class="font-semibold">Quotation</div><div class="text-xs text-gray-400">Cost proposals</div></div></a>
+              <a onclick="navigate('estimate')"  class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-yellow-50 hover:text-yellow-700 cursor-pointer transition-colors"><span class="w-7 h-7 rounded-lg bg-yellow-100 flex items-center justify-center flex-shrink-0"><i class="fas fa-calculator text-yellow-600 text-xs"></i></span><div><div class="font-semibold">Estimate</div><div class="text-xs text-gray-400">Project pricing</div></div></a>
+              <div class="border-t border-gray-100 my-1 mx-3"></div>
+              <div class="px-4 py-1.5 text-xs font-black text-gray-400 uppercase tracking-widest">📋 Official Docs</div>
+              <a onclick="navigate('certificate')"        class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-pink-50 hover:text-pink-700 cursor-pointer transition-colors"><span class="w-7 h-7 rounded-lg bg-pink-100 flex items-center justify-center flex-shrink-0"><i class="fas fa-award text-pink-600 text-xs"></i></span><div><div class="font-semibold">Certificate</div><div class="text-xs text-gray-400">Achievement</div></div></a>
+              <a onclick="navigate('offer-letter')"       class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 cursor-pointer transition-colors"><span class="w-7 h-7 rounded-lg bg-indigo-100 flex items-center justify-center flex-shrink-0"><i class="fas fa-briefcase text-indigo-600 text-xs"></i></span><div><div class="font-semibold">Offer Letter</div><div class="text-xs text-gray-400">Job offers</div></div></a>
+              <a onclick="navigate('appointment-letter')" class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-cyan-50 hover:text-cyan-700 cursor-pointer transition-colors"><span class="w-7 h-7 rounded-lg bg-cyan-100 flex items-center justify-center flex-shrink-0"><i class="fas fa-user-tie text-cyan-600 text-xs"></i></span><div><div class="font-semibold">Appointment Letter</div><div class="text-xs text-gray-400">HR documents</div></div></a>
+              <a onclick="navigate('id-card')"            class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-red-50 hover:text-red-700 cursor-pointer transition-colors"><span class="w-7 h-7 rounded-lg bg-red-100 flex items-center justify-center flex-shrink-0"><i class="fas fa-id-card text-red-600 text-xs"></i></span><div><div class="font-semibold">ID Card</div><div class="text-xs text-gray-400">Employee/Student</div></div></a>
+              <a onclick="navigate('event-pass')"         class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-700 cursor-pointer transition-colors"><span class="w-7 h-7 rounded-lg bg-teal-100 flex items-center justify-center flex-shrink-0"><i class="fas fa-ticket-alt text-teal-600 text-xs"></i></span><div><div class="font-semibold">Event Pass</div><div class="text-xs text-gray-400">QR access</div></div></a>
+            </div>
+          </div>
+
+          <a onclick="navigate('bulk')" class="px-3 py-2 rounded-lg text-sm font-semibold text-purple-700 hover:text-purple-800 hover:bg-purple-50 cursor-pointer transition-all flex items-center gap-1.5"><i class="fas fa-layer-group text-xs"></i>Bulk PDF</a>
+          <a onclick="navigate('about')" class="px-3 py-2 rounded-lg text-sm font-semibold text-gray-600 hover:text-blue-600 hover:bg-blue-50 cursor-pointer transition-all">About</a>
+          <a onclick="navigate('help')"  class="px-3 py-2 rounded-lg text-sm font-semibold text-gray-600 hover:text-blue-600 hover:bg-blue-50 cursor-pointer transition-all">Help</a>
+        </nav>
+
+        <!-- Right: Auth + mobile menu button -->
+        <div class="flex items-center gap-2">
+          <div id="nav-auth-area" class="flex items-center gap-2"></div>
+          <button onclick="toggleMobileMenu()" class="md:hidden p-2.5 rounded-xl text-gray-600 hover:bg-gray-100 transition-colors" aria-label="Toggle menu">
+            <i class="fas fa-bars text-sm"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-gray-100 bg-white shadow-lg">
+      <div class="px-4 py-3 space-y-1 max-h-[80vh] overflow-y-auto">
+        <a onclick="navigate('home');toggleMobileMenu()" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-gray-700 hover:bg-gray-50 cursor-pointer"><i class="fas fa-home w-4 text-blue-500"></i> Home</a>
+        <div class="text-xs font-black text-gray-400 uppercase tracking-widest px-3 pt-3 pb-1">Financial</div>
+        <a onclick="navigate('invoice');toggleMobileMenu()"             class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-gray-700 hover:bg-blue-50 cursor-pointer"><i class="fas fa-file-invoice w-4 text-blue-500"></i> Invoice</a>
+        <a onclick="navigate('receipt');toggleMobileMenu()"             class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-gray-700 hover:bg-green-50 cursor-pointer"><i class="fas fa-receipt w-4 text-green-500"></i> Receipt</a>
+        <a onclick="navigate('bill');toggleMobileMenu()"                class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-gray-700 hover:bg-orange-50 cursor-pointer"><i class="fas fa-file-alt w-4 text-orange-500"></i> Bill</a>
+        <a onclick="navigate('quotation');toggleMobileMenu()"           class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-gray-700 hover:bg-purple-50 cursor-pointer"><i class="fas fa-file-contract w-4 text-purple-500"></i> Quotation</a>
+        <a onclick="navigate('estimate');toggleMobileMenu()"            class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-gray-700 hover:bg-yellow-50 cursor-pointer"><i class="fas fa-calculator w-4 text-yellow-500"></i> Estimate</a>
+        <div class="text-xs font-black text-gray-400 uppercase tracking-widest px-3 pt-3 pb-1">Official Docs</div>
+        <a onclick="navigate('certificate');toggleMobileMenu()"         class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-gray-700 hover:bg-pink-50 cursor-pointer"><i class="fas fa-award w-4 text-pink-500"></i> Certificate</a>
+        <a onclick="navigate('offer-letter');toggleMobileMenu()"        class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-gray-700 hover:bg-indigo-50 cursor-pointer"><i class="fas fa-briefcase w-4 text-indigo-500"></i> Offer Letter</a>
+        <a onclick="navigate('appointment-letter');toggleMobileMenu()"  class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-gray-700 hover:bg-cyan-50 cursor-pointer"><i class="fas fa-user-tie w-4 text-cyan-500"></i> Appointment Letter</a>
+        <a onclick="navigate('id-card');toggleMobileMenu()"             class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-gray-700 hover:bg-red-50 cursor-pointer"><i class="fas fa-id-card w-4 text-red-500"></i> ID Card</a>
+        <a onclick="navigate('event-pass');toggleMobileMenu()"          class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-gray-700 hover:bg-teal-50 cursor-pointer"><i class="fas fa-ticket-alt w-4 text-teal-500"></i> Event Pass</a>
+        <div class="border-t border-gray-100 pt-2 mt-2 pb-1">
+          <a onclick="navigate('bulk');toggleMobileMenu()"    class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-purple-700 hover:bg-purple-50 cursor-pointer"><i class="fas fa-layer-group w-4 text-purple-500"></i> Bulk PDF Generator</a>
+          <a onclick="navigate('about');toggleMobileMenu()"   class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-gray-700 hover:bg-gray-50 cursor-pointer"><i class="fas fa-info-circle w-4 text-gray-400"></i> About</a>
+          <a onclick="navigate('help');toggleMobileMenu()"    class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-gray-700 hover:bg-gray-50 cursor-pointer"><i class="fas fa-question-circle w-4 text-gray-400"></i> Help</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════════
+       MAIN APP CONTAINER
+  ═════════════════════════════════════════════════════════ -->
+  <main id="app" class="min-h-screen" role="main"></main>
+
+  <!-- ═══════════════════════════════════════════════════════
+       FOOTER
+  ═════════════════════════════════════════════════════════ -->
+  <footer class="bg-gray-950 text-gray-400" role="contentinfo">
+    <!-- Footer Ad Zone -->
+    <div class="bg-gray-900 border-b border-gray-800 flex items-center justify-center py-3 px-4" style="min-height:58px">
+      <!-- Google AdSense Footer Leaderboard 728x90 -->
+      <ins class="adsbygoogle"
+           style="display:inline-block;width:728px;height:90px"
+           data-ad-client="ca-pub-2715542305151303"
+           data-ad-slot="auto"
+           data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-10">
+        <!-- Brand -->
+        <div class="col-span-2 md:col-span-1">
+          <div class="flex items-center gap-2.5 mb-4">
+            <div class="w-9 h-9 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
+              <i class="fas fa-file-pdf text-white text-sm"></i>
+            </div>
+            <span class="text-xl font-black text-white">PDF<span class="text-blue-400">Decor</span></span>
+          </div>
+          <p class="text-sm leading-relaxed text-gray-500 mb-4">Free professional PDF generator for Indian businesses. GST compliant. No signup needed.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="feature-badge" style="background:#0f2617;color:#4ade80;border-color:#166534;font-size:10px"><i class="fas fa-lock"></i>100% Free</span>
+            <span class="feature-badge" style="background:#0c1a2e;color:#60a5fa;border-color:#1e40af;font-size:10px"><i class="fas fa-bolt"></i>Instant PDF</span>
+            <span class="feature-badge" style="background:#1a0c2e;color:#c084fc;border-color:#6b21a8;font-size:10px"><i class="fas fa-shield-alt"></i>Private</span>
+          </div>
+        </div>
+
+        <!-- Financial Docs -->
+        <div>
+          <h4 class="text-white font-bold text-sm mb-4">Financial</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a onclick="navigate('invoice')"   class="hover:text-white cursor-pointer transition-colors hover:translate-x-1 inline-block">Invoice</a></li>
+            <li><a onclick="navigate('receipt')"   class="hover:text-white cursor-pointer transition-colors hover:translate-x-1 inline-block">Receipt</a></li>
+            <li><a onclick="navigate('bill')"      class="hover:text-white cursor-pointer transition-colors hover:translate-x-1 inline-block">Bill</a></li>
+            <li><a onclick="navigate('quotation')" class="hover:text-white cursor-pointer transition-colors hover:translate-x-1 inline-block">Quotation</a></li>
+            <li><a onclick="navigate('estimate')"  class="hover:text-white cursor-pointer transition-colors hover:translate-x-1 inline-block">Estimate</a></li>
+          </ul>
+        </div>
+
+        <!-- Official Docs -->
+        <div>
+          <h4 class="text-white font-bold text-sm mb-4">Official Docs</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a onclick="navigate('certificate')"        class="hover:text-white cursor-pointer transition-colors">Certificate</a></li>
+            <li><a onclick="navigate('offer-letter')"       class="hover:text-white cursor-pointer transition-colors">Offer Letter</a></li>
+            <li><a onclick="navigate('appointment-letter')" class="hover:text-white cursor-pointer transition-colors">Appointment Letter</a></li>
+            <li><a onclick="navigate('id-card')"            class="hover:text-white cursor-pointer transition-colors">ID Card</a></li>
+            <li><a onclick="navigate('event-pass')"         class="hover:text-white cursor-pointer transition-colors">Event Pass</a></li>
+          </ul>
+        </div>
+
+        <!-- Company -->
+        <div>
+          <h4 class="text-white font-bold text-sm mb-4">Company</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a onclick="navigate('about')"   class="hover:text-white cursor-pointer transition-colors">About Us</a></li>
+            <li><a onclick="navigate('help')"    class="hover:text-white cursor-pointer transition-colors">Help Center</a></li>
+            <li><a onclick="navigate('bulk')"    class="hover:text-white cursor-pointer transition-colors flex items-center gap-1.5"><i class="fas fa-layer-group text-purple-400 text-xs"></i>Bulk PDF Generator</a></li>
+            <li><a onclick="navigate('privacy')" class="hover:text-white cursor-pointer transition-colors">Privacy Policy</a></li>
+            <li><a onclick="navigate('terms')"   class="hover:text-white cursor-pointer transition-colors">Terms of Service</a></li>
+            <li><a onclick="navigate('login')"   class="hover:text-white cursor-pointer transition-colors">Sign In / Sign Up</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Bottom bar -->
+      <div class="border-t border-gray-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="text-sm text-gray-600">© 2025 PDFDecor. All rights reserved. Made with ❤️ for India 🇮🇳</p>
+        <div class="flex items-center gap-5 text-sm text-gray-600 flex-wrap justify-center">
+          <span class="flex items-center gap-1.5"><i class="fas fa-lock text-green-500"></i>Data stays on device</span>
+          <span class="flex items-center gap-1.5"><i class="fas fa-bolt text-yellow-500"></i>Instant PDF</span>
+          <span class="flex items-center gap-1.5"><i class="fas fa-rupee-sign text-blue-400"></i>Always Free</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════════════════
+       INTERSTITIAL AD MODAL (shown before download)
+  ═════════════════════════════════════════════════════════ -->
+  <div id="interstitial-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4" style="background:rgba(0,0,0,0.8);backdrop-filter:blur(8px)" role="dialog" aria-modal="true" aria-label="Advertisement">
+    <div class="bg-white rounded-3xl shadow-2xl w-full max-w-md overflow-hidden animate-modal">
+
+      <!-- Modal header bar -->
+      <div class="bg-gradient-to-r from-gray-900 to-gray-800 px-5 py-3 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-yellow-400 animate-pulse"></span>
+          <span class="text-xs text-gray-400 font-semibold uppercase tracking-widest">Advertisement</span>
+        </div>
+        <button id="interstitial-close-btn"
+          class="hidden items-center gap-1.5 text-xs font-black text-white/80 hover:text-white bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition-all"
+          onclick="closeInterstitialAndDownload()">
+          Skip <i class="fas fa-forward-fast text-xs"></i>
+        </button>
+      </div>
+
+      <!-- Ad content area -->
+      <div class="p-5">
+        <!-- Google AdSense Interstitial 300x250 -->
+        <div class="flex items-center justify-center rounded-2xl overflow-hidden mb-5 bg-gray-50 border border-gray-100" style="min-height:250px">
+          <ins class="adsbygoogle"
+               style="display:inline-block;width:300px;height:250px"
+               data-ad-client="ca-pub-2715542305151303"
+               data-ad-slot="auto"></ins>
+          <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+        </div>
+
+        <!-- Countdown & progress -->
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2 text-sm text-gray-500">
+              <i class="fas fa-file-download text-blue-500"></i>
+              Your PDF is ready to download
+            </div>
+            <div class="flex items-center gap-1.5">
+              <div class="text-2xl font-black text-blue-600 w-8 text-center tabular-nums" id="interstitial-countdown">5</div>
+              <div class="text-xs text-gray-400 font-medium">sec</div>
+            </div>
+          </div>
+          <!-- Progress bar -->
+          <div class="w-full bg-gray-100 rounded-full h-2.5 overflow-hidden">
+            <div id="interstitial-progress"
+              class="h-2.5 rounded-full bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 transition-all ease-linear"
+              style="width:0%;transition-duration:1000ms"></div>
+          </div>
+          <p class="text-xs text-center text-gray-400 flex items-center justify-center gap-1.5">
+            <span class="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse inline-block"></span>
+            Generating your PDF in the background…
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast notification container -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-[200] space-y-2 pointer-events-none" aria-live="polite" role="status"></div>
+
+  <!-- Sticky Mobile Bottom Ad (Anchor Ad) -->
+  <div id="sticky-bottom-ad" class="fixed bottom-0 left-0 right-0 z-[90] flex items-center justify-center md:hidden" style="background:#f8fafc;border-top:1px solid #e2e8f0;min-height:56px;">
+    <ins class="adsbygoogle"
+         style="display:inline-block;width:320px;height:50px"
+         data-ad-client="ca-pub-2715542305151303"
+         data-ad-slot="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+    <button onclick="document.getElementById('sticky-bottom-ad').remove()" class="absolute right-2 top-1 text-gray-400 hover:text-gray-600 text-xs p-1" aria-label="Close ad">&times;</button>
+  </div>
+
+  <!-- Post-Download Ad Toast (shown after every PDF save) -->
+  <div id="post-download-ad" class="hidden fixed bottom-20 right-4 z-[150] w-72 bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden" style="animation:slideInRight 0.35s cubic-bezier(0.22,1,0.36,1)">
+    <div class="bg-gradient-to-r from-blue-600 to-purple-600 px-3 py-2 flex items-center justify-between">
+      <span class="text-xs text-white font-bold tracking-wide">📥 PDF Downloaded!</span>
+      <button onclick="document.getElementById('post-download-ad').classList.add('hidden')" class="text-white/70 hover:text-white text-sm leading-none">&times;</button>
+    </div>
+    <div class="p-2">
+      <ins class="adsbygoogle"
+           style="display:inline-block;width:256px;height:100px"
+           data-ad-client="ca-pub-2715542305151303"
+           data-ad-slot="auto"></ins>
+      <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+    </div>
+  </div>
+
+  <style>
+  @keyframes slideInRight {
+    from { transform:translateX(110%); opacity:0; }
+    to   { transform:translateX(0);    opacity:1; }
+  }
+  /* Add bottom padding for sticky mobile ad */
+  @media(max-width:767px) { #app { padding-bottom: 60px; } }
+  </style>
+
+  <!-- ═══════════════════════════════════════════════════════
+       JAVASCRIPT (load order matters)
+  ═════════════════════════════════════════════════════════ -->
+  <script src="js/auth.js"></script>
+  <script src="js/pdf-engine.js"></script>
+  <script src="js/templates.js"></script>
+  <script src="js/pages/home.js"></script>
+  <script src="js/pages/editor.js"></script>
+  <script src="js/pages/login.js"></script>
+  <script src="js/pages/dashboard.js"></script>
+  <script src="js/pages/static-pages.js"></script>
+  <script src="js/pages/bulk.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
